@@ -1,4 +1,4 @@
-package com.homan.huang.a20210317_homanhuang_nycschools
+package com.homan.huang.a20210317_homanhuang_nycschools.ui.main
 
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -6,11 +6,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-import com.homan.huang.a20210317_homanhuang_nycschools.ui.main.SectionsPagerAdapter
 import com.homan.huang.a20210317_homanhuang_nycschools.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+//@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

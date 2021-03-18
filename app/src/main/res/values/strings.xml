@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">20210317-HomanHuang-NYCSchools</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_title_1">A-E</string>
+    <string name="tab_title_2">F-J</string>
+    <string name="tab_title_3">K-O</string>
+    <string name="tab_title_4">P-T</string>
+    <string name="tab_title_5">U-Z</string>
+    
 </resources>
