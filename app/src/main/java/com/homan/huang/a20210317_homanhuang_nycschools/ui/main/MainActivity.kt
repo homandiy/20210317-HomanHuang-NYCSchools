@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.homan.huang.a20210317_homanhuang_nycschools.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

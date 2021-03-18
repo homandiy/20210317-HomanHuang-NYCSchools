@@ -16,11 +16,11 @@ import dagger.hilt.android.AndroidEntryPoint
 /**
  * A placeholder fragment scooh information by tab title
  */
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class PlaceholderFragment : Fragment() {
 
-//    private val pageViewModel: PageViewModel by viewModels()
-    private lateinit var pageViewModel: PageViewModel
+    private val pageViewModel: PageViewModel by viewModels()
+//    private lateinit var pageViewModel: PageViewModel
     private var _binding: FragmentMainBinding? = null
 
     // This property is only valid between onCreateView and
@@ -29,9 +29,9 @@ class PlaceholderFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
-            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-        }
+//        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
+//            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
+//        }
     }
 
     override fun onCreateView(
@@ -43,6 +43,11 @@ class PlaceholderFragment : Fragment() {
         val root = binding.root
 
         val textView: TextView = binding.sectionLabel
+
+        // preset data
+        pageViewModel.apply {
+            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
+        }
 
         // observer
         pageViewModel.text.observe(viewLifecycleOwner, Observer {
