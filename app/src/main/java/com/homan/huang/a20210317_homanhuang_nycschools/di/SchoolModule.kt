@@ -1,11 +1,12 @@
 package com.homan.huang.a20210317_homanhuang_nycschools.di
 
-import android.app.Application
 import android.content.Context
 import androidx.work.WorkManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.homan.huang.a20210317_homanhuang_nycschools.network.NyHsApiService
+import com.homan.huang.a20210317_homanhuang_nycschools.network.NycHsApiHelper
+import com.homan.huang.a20210317_homanhuang_nycschools.network.NycHsApiHelperImpl
+import com.homan.huang.a20210317_homanhuang_nycschools.network.NycHsApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,8 +65,12 @@ object SchoolModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): NyHsApiService =
-        retrofit.create(NyHsApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): NycHsApiService =
+        retrofit.create(NycHsApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideApiHelper(apiHelper: NycHsApiHelperImpl): NycHsApiHelper = apiHelper
 
     @Provides
     @Singleton
