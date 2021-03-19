@@ -78,7 +78,7 @@ dependencies {
     //endregion
 
     //region room
-    def room_version = "2.2.6"
+    def room_version = "2.3.0-beta03"
 
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"

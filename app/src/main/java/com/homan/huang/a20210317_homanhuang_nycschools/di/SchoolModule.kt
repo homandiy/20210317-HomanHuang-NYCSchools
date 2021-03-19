@@ -76,4 +76,5 @@ object SchoolModule {
     @Singleton
     fun provideWorkManager(@ApplicationContext appContext: Context): WorkManager =
         WorkManager.getInstance(appContext)
+
 }

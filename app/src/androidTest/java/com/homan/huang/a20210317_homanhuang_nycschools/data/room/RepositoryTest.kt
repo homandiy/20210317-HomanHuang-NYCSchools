@@ -1,24 +1,17 @@
 package com.homan.huang.a20210317_homanhuang_nycschools.data.room
 
-import androidx.test.ext.junit.rules.ActivityScenarioRule
-import com.homan.huang.a20210317_homanhuang_nycschools.network.NycHsApiService
-import com.homan.huang.a20210317_homanhuang_nycschools.ui.main.MainActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import assertk.assertThat
 import assertk.assertions.isGreaterThan
 import assertk.assertions.isNotNull
-import assertk.assertions.isNull
-import com.example.background.helper.lgd
 import com.homan.huang.a20210317_homanhuang_nycschools.network.NycHsApiHelper
 import dagger.hilt.android.testing.HiltTestApplication
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import javax.inject.Inject
 
@@ -53,7 +46,7 @@ class RepositoryTest {
     fun testRepository() {
         assertThat(apiHelper).isNotNull()
 
-        val repo = Repository(apiHelper)
+        val repo = Repository(apiHelper, schoolDb)
         assertThat(repo).isNotNull()
 
         runBlocking {
