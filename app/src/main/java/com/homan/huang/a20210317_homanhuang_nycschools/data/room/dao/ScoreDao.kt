@@ -1,4 +1,4 @@
-package com.homan.huang.a20210317_homanhuang_nycschools.data.room
+package com.homan.huang.a20210317_homanhuang_nycschools.data.room.dao
 
 import androidx.room.*
 import com.homan.huang.a20210317_homanhuang_nycschools.data.entity.Score
@@ -16,4 +16,8 @@ interface ScoreDao {
 
     @Delete
     fun deleteAll(socreList: List<Score>)
+
+    // count all rows
+    @Query("SELECT COUNT(dbn) FROM score")
+    fun getCount(): Int
 }

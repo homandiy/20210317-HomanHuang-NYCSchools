@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.homan.huang.a20210317_homanhuang_nycschools.R
+import androidx.recyclerview.widget.RecyclerView
 import com.homan.huang.a20210317_homanhuang_nycschools.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,19 +18,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class PlaceholderFragment : Fragment() {
 
     private val pageViewModel: PageViewModel by viewModels()
-//    private lateinit var pageViewModel: PageViewModel
+
+    // databinding
     private var _binding: FragmentMainBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
-//            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-//        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +32,8 @@ class PlaceholderFragment : Fragment() {
         val root = binding.root
 
         val textView: TextView = binding.sectionLabel
+        val recView: RecyclerView = binding.recyclerView
+        val pageNum = arguments?.getInt(ARG_SECTION_NUMBER) ?: 1
 
         // preset data
         pageViewModel.apply {
@@ -50,8 +41,16 @@ class PlaceholderFragment : Fragment() {
         }
 
         // observer
-        pageViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+        pageViewModel.text.observe(viewLifecycleOwner, {
+            binding.sectionLabel.text = it
+        })
+
+        pageViewModel.schoollist.observe(viewLifecycleOwner,  {
+            if (it.size > 0) {
+                val mList = it.sortedBy { it.schoolName }
+                recView.adapter = SchoolItemAdapter(mList)
+            }
+
         })
         return root
     }

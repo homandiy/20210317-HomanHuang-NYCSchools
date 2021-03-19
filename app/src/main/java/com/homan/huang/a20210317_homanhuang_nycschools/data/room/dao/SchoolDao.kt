@@ -1,4 +1,4 @@
-package com.homan.huang.a20210317_homanhuang_nycschools.data.room
+package com.homan.huang.a20210317_homanhuang_nycschools.data.room.dao
 
 import androidx.room.*
 import com.homan.huang.a20210317_homanhuang_nycschools.data.entity.School
@@ -19,4 +19,8 @@ interface SchoolDao {
 
     @Query("SELECT * FROM school")
     fun getSchools(): List<School>
+
+    // count all rows
+    @Query("SELECT COUNT(dbn) FROM school")
+    fun getCount(): Int
 }

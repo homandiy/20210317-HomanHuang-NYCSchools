@@ -9,7 +9,7 @@ import javax.inject.Singleton
 @Singleton
 class Repository @Inject constructor(
     private val apiHelper: NycHsApiHelper,
-    schoolDb: SchoolDatabase
+    private val schoolDb: SchoolDatabase
 ) {
     private var schools: MutableList<School>? = null
 
@@ -24,6 +24,30 @@ class Repository @Inject constructor(
             }
         }
         return schools
+    }
+
+    // check roomdb status
+    fun checkRoomStatus(): Boolean {
+        val schoolCount = schoolDb.schoolDao().getCount()
+        val scoreCount = schoolDb.scoreDao().getCount()
+
+        return schoolCount> 10 && scoreCount > 10
+    }
+
+    suspend fun saveToRoom() {
+        // schools to Room
+        val schools = apiHelper.getSchoolInfo()
+        lgi("school count: ${schools.size}")
+        schoolDb.schoolDao().insertAll(schools)
+
+        // scores to Room
+        val scores = apiHelper.getSchoolScores()
+        lgi("scores record count: ${scores.size}")
+        schoolDb.scoreDao().insertAll(scores)
+    }
+
+    fun getAllSchools(): List<School> {
+        return schoolDb.schoolDao().getSchools()
     }
 
 }

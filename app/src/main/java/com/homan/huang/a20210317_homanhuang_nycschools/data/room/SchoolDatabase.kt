@@ -6,6 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.homan.huang.a20210317_homanhuang_nycschools.data.entity.School
 import com.homan.huang.a20210317_homanhuang_nycschools.data.entity.Score
+import com.homan.huang.a20210317_homanhuang_nycschools.data.room.dao.SchoolDao
+import com.homan.huang.a20210317_homanhuang_nycschools.data.room.dao.ScoreDao
 import com.homan.huang.a20210317_homanhuang_nycschools.helper.DB_NAME
 
 
