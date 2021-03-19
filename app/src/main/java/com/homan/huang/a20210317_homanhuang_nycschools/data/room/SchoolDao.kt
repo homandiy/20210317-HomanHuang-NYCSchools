@@ -1,14 +1,12 @@
 package com.homan.huang.a20210317_homanhuang_nycschools.data.room
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.homan.huang.a20210317_homanhuang_nycschools.data.entity.School
 
+@Dao
 interface SchoolDao {
     @Query("SELECT * FROM school WHERE dbn = :mDbn")
-    fun getScores(mDbn: String): List<School>?
+    fun getSchool(mDbn: String): List<School>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(schoolList: List<School>)
@@ -18,4 +16,7 @@ interface SchoolDao {
 
     @Delete
     fun deleteAll(schoolList: List<School>)
+
+    @Query("SELECT * FROM school")
+    fun getSchools(): List<School>
 }

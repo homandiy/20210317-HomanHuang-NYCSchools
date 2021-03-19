@@ -9,7 +9,7 @@ import javax.inject.Singleton
 @Singleton
 class Repository @Inject constructor(
     private val apiHelper: NycHsApiHelper,
-//    schoolDb: SchoolDatabase
+    schoolDb: SchoolDatabase
 ) {
     private var schools: MutableList<School>? = null
 
