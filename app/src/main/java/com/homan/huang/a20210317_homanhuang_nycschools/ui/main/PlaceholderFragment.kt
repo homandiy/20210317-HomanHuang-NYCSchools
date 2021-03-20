@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.background.helper.lgd
+import com.homan.huang.a20210317_homanhuang_nycschools.data.entity.School
 import com.homan.huang.a20210317_homanhuang_nycschools.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +28,11 @@ class PlaceholderFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
+    // recyclerView clickListener
+    private val schoolListener = SchoolClickListener {
+        lgd("You click on dbn: $it")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,9 +41,11 @@ class PlaceholderFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val root = binding.root
 
-        val textView: TextView = binding.sectionLabel
+//        val textView: TextView = binding.sectionLabel
         val recView: RecyclerView = binding.recyclerView
-        val pageNum = arguments?.getInt(ARG_SECTION_NUMBER) ?: 1
+//        val pageNum = arguments?.getInt(ARG_SECTION_NUMBER) ?: 1
+
+//        recView.visibility = View.GONE
 
         // preset data
         pageViewModel.apply {
@@ -51,11 +60,36 @@ class PlaceholderFragment : Fragment() {
 
         pageViewModel.schoollist.observe(viewLifecycleOwner,  {
             val mText = binding.sectionLabel.text
+            val mSec = mText.last() //find the section#
 
-            lgd("page #: $pageNum at ${mText.last()}")
+            lgd("Section # at ${mSec}")
             if (it.size > 0) {
-                val mList = it.sortedBy { it.schoolName }
-                recView.adapter = SchoolItemAdapter(mList)
+                var mList = listOf<School>()
+
+                // divide school list into sections
+                when (mSec) {
+                    '1'-> { // ABCDE
+                        mList = it.sortedBy { it.schoolName }
+                            .filter { it.schoolName[0] < 'F' }
+                    }
+                    '2'-> { // FGHIJ
+                        mList = it.sortedBy { it.schoolName }
+                            .filter {  'E' < it.schoolName[0] && it.schoolName[0] < 'K'}
+                    }
+                    '3'-> { // KLMNO
+                        mList = it.sortedBy { it.schoolName }
+                            .filter {  'J' < it.schoolName[0] && it.schoolName[0] < 'P'}
+                    }
+                    '4'-> { // PQRST
+                        mList = it.sortedBy { it.schoolName }
+                            .filter {  'O' < it.schoolName[0] && it.schoolName[0] < 'U'}
+                    }
+                    else -> { // U-Z0-9
+                        mList = it.sortedBy { it.schoolName }
+                            .filter { it.schoolName[0] > 'T'}
+                    }
+                }
+                recView.adapter = SchoolItemAdapter(mList, schoolListener)
             }
 
         })
@@ -68,7 +102,6 @@ class PlaceholderFragment : Fragment() {
          * fragment.
          */
         private const val ARG_SECTION_NUMBER = "section_number"
-        private const val ARG_TITLE = "section_title"
 
         /**
          * Returns a new instance of this fragment for the given section

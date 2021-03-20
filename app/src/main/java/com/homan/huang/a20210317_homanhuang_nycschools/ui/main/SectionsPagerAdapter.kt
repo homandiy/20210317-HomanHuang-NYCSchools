@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.background.helper.lgd
+import com.example.background.helper.lgi
 import com.homan.huang.a20210317_homanhuang_nycschools.R
 
 
@@ -20,6 +21,8 @@ class SectionsPagerAdapter(fa: FragmentActivity, val size: Int):
     // total tabs
     override fun getItemCount(): Int = size
 
-    override fun createFragment(position: Int): Fragment =
-        PlaceholderFragment.newInstance(position + 1)
+    override fun createFragment(position: Int): Fragment {
+        lgi("Create new fragement: ${position+1}")
+        return PlaceholderFragment.newInstance(position + 1)
+    }
 }

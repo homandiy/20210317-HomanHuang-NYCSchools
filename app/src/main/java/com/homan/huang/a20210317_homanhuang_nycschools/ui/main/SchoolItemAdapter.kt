@@ -10,11 +10,14 @@ import com.homan.huang.a20210317_homanhuang_nycschools.databinding.SchoolItemBin
 /*
     Display each school with title
  */
-class SchoolItemAdapter(private val dataSet: List<School>) :
-    RecyclerView.Adapter<SchoolItemAdapter.ViewHolder>() {
+class SchoolItemAdapter(
+    private val dataSet: List<School>,
+    private val schoolListener: SchoolClickListener
+): RecyclerView.Adapter<SchoolItemAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: SchoolItemBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(
+        val binding: SchoolItemBinding
+    ): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -29,7 +32,13 @@ class SchoolItemAdapter(private val dataSet: List<School>) :
 
     // Replace the contents of a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.schoolName.text = dataSet[position].schoolName
+        val schoolName = holder.binding.schoolName
+        schoolName.text = dataSet[position].schoolName
+
+        holder.binding.schoolItem.setOnClickListener {
+            schoolListener.onClick(dataSet[position].dbn)
+        }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

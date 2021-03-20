@@ -48,4 +48,15 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
     }
+
+    override fun onBackPressed() {
+        if (binding.viewPager.currentItem == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed()
+        } else {
+            // Otherwise, select the previous step.
+            binding.viewPager.currentItem = binding.viewPager.currentItem - 1
+        }
+    }
 }
