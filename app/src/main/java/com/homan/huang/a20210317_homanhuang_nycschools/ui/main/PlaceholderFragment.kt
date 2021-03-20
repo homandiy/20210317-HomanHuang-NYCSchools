@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.example.background.helper.lgd
 import com.homan.huang.a20210317_homanhuang_nycschools.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PlaceholderFragment : Fragment() {
 
+//    private val pageViewModel: PageViewModel by activityViewModels()
     private val pageViewModel: PageViewModel by viewModels()
 
     // databinding
@@ -44,8 +47,12 @@ class PlaceholderFragment : Fragment() {
         pageViewModel.text.observe(viewLifecycleOwner, {
             binding.sectionLabel.text = it
         })
+//        binding.sectionLabel.visibility = View.GONE
 
         pageViewModel.schoollist.observe(viewLifecycleOwner,  {
+            val mText = binding.sectionLabel.text
+
+            lgd("page #: $pageNum at ${mText.last()}")
             if (it.size > 0) {
                 val mList = it.sortedBy { it.schoolName }
                 recView.adapter = SchoolItemAdapter(mList)
@@ -61,6 +68,7 @@ class PlaceholderFragment : Fragment() {
          * fragment.
          */
         private const val ARG_SECTION_NUMBER = "section_number"
+        private const val ARG_TITLE = "section_title"
 
         /**
          * Returns a new instance of this fragment for the given section

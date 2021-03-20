@@ -29,7 +29,7 @@ class SchoolItemAdapter(private val dataSet: List<School>) :
 
     // Replace the contents of a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.schoolName.text = dataSet[position].toString()
+        holder.binding.schoolName.text = dataSet[position].schoolName
     }
 
     // Return the size of your dataset (invoked by the layout manager)
