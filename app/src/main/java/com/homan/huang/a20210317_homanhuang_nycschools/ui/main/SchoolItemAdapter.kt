@@ -12,12 +12,14 @@ import com.homan.huang.a20210317_homanhuang_nycschools.databinding.SchoolItemBin
  */
 class SchoolItemAdapter(
     private val dataSet: List<School>,
-    private val schoolListener: SchoolClickListener
+    private val schoolClickListener: SchoolClickListener
 ): RecyclerView.Adapter<SchoolItemAdapter.ViewHolder>() {
 
+    //region view binding
     class ViewHolder(
         val binding: SchoolItemBinding
     ): RecyclerView.ViewHolder(binding.root)
+    //endregion view binding
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -36,9 +38,9 @@ class SchoolItemAdapter(
         schoolName.text = dataSet[position].schoolName
 
         holder.binding.schoolItem.setOnClickListener {
-            schoolListener.onClick(dataSet[position].dbn)
+//            schoolListener.onClick(dataSet[position].dbn)
+            schoolClickListener.onSchool_item_click(dataSet[position].dbn)
         }
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)

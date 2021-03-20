@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * A placeholder fragment scooh information by tab title
  */
 @AndroidEntryPoint
-class PlaceholderFragment : Fragment() {
+class PlaceholderFragment : Fragment(), SchoolClickListener {
 
 //    private val pageViewModel: PageViewModel by activityViewModels()
     private val pageViewModel: PageViewModel by viewModels()
@@ -29,8 +29,11 @@ class PlaceholderFragment : Fragment() {
     private val binding get() = _binding!!
 
     // recyclerView clickListener
-    private val schoolListener = SchoolClickListener {
-        lgd("You click on dbn: $it")
+//    private val schoolListener = SchoolClickListener {
+//        lgd("You click on dbn: $it")
+//    }
+    override fun onSchool_item_click(key: String) {
+        lgd("You click on dbn: $key")
     }
 
     override fun onCreateView(
@@ -89,7 +92,7 @@ class PlaceholderFragment : Fragment() {
                             .filter { it.schoolName[0] > 'T'}
                     }
                 }
-                recView.adapter = SchoolItemAdapter(mList, schoolListener)
+                recView.adapter = SchoolItemAdapter(mList, this)
             }
 
         })
@@ -121,4 +124,6 @@ class PlaceholderFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

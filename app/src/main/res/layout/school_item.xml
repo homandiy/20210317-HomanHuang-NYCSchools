@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools">-->
 
-    <data>
-        <variable
-            name="clickListener"
-            type="com.homan.huang.a20210317_homanhuang_nycschools.ui.main.SchoolClickListener" />
-        <variable
-            name="dbn"
-            type="String" />
-    </data>
+<!--    <data>-->
+<!--        <variable-->
+<!--            name="clickListener"-->
+<!--            type="com.homan.huang.a20210317_homanhuang_nycschools.ui.main.SchoolClickListener" />-->
+<!--        <variable-->
+<!--            name="dbn"-->
+<!--            type="String" />-->
+<!--    </data>-->
+<!--    android:onClick="@{() -> clickListener.onClick(dbn)}"-->
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/school_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> clickListener.onClick(dbn)}"
         android:background="@android:drawable/gallery_thumb"
         android:backgroundTint="@android:color/holo_green_light">
 
@@ -45,4 +47,4 @@
             android:textSize="20sp" />
 
     </LinearLayout>
-</layout>
+<!--</layout>-->
