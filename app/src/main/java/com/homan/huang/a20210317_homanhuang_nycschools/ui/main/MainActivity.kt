@@ -1,6 +1,8 @@
 package com.homan.huang.a20210317_homanhuang_nycschools.ui.main
 
 import android.os.Bundle
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -9,12 +11,16 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.homan.huang.a20210317_homanhuang_nycschools.R
 import com.homan.huang.a20210317_homanhuang_nycschools.databinding.ActivityMainBinding
+import com.homan.huang.a20210317_homanhuang_nycschools.ui.main.InfoStatus.*
+import com.homan.huang.a20210317_homanhuang_nycschools.ui.main.adapter.SectionsPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
+    // view binding
     private lateinit var binding: ActivityMainBinding
+
+    private val mainVM: MainViewModel by viewModels()
 
     private val TAB_TITLES = arrayOf(
         R.string.tab_title_1,
@@ -30,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //region TABs
+        //region TABs: controls schools' categories
         val sectionsPagerAdapter = SectionsPagerAdapter(this, TAB_TITLES.size)
         val viewPager: ViewPager2 = binding.viewPager //findViewById
         viewPager.adapter = sectionsPagerAdapter
@@ -41,8 +47,24 @@ class MainActivity : AppCompatActivity() {
         }.attach()
         //endregion
 
+        // select info fragment
+        mainVM.display.observe(this, {
+            when(it) {
+                SCHOOLS -> {
+                    binding.viewPager.visibility = View.VISIBLE
+                    binding.scoresDisplay.visibility = View.GONE
+                    binding.fabSearch.visibility = View.VISIBLE
+                }
+                SAT_SCORES -> {
+                    binding.viewPager.visibility = View.GONE
+                    binding.scoresDisplay.visibility = View.VISIBLE
+                    binding.fabSearch.visibility = View.GONE
+                }
+            }
+        })
+
         // Floating button
-        val fab: FloatingActionButton = binding.fab
+        val fab: FloatingActionButton = binding.fabSearch
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -51,9 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (binding.viewPager.currentItem == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed()
+            binding.viewPager.currentItem = TAB_TITLES.size - 1
         } else {
             // Otherwise, select the previous step.
             binding.viewPager.currentItem = binding.viewPager.currentItem - 1

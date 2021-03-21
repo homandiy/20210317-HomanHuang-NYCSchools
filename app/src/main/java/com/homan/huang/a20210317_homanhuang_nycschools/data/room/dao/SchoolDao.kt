@@ -6,21 +6,21 @@ import com.homan.huang.a20210317_homanhuang_nycschools.data.entity.School
 @Dao
 interface SchoolDao {
     @Query("SELECT * FROM school WHERE dbn = :mDbn")
-    fun getSchool(mDbn: String): List<School>?
+    suspend fun getSchool(mDbn: String): List<School>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(schoolList: List<School>)
+    suspend fun insertAll(schoolList: List<School>)
 
     @Delete
-    fun delete(school: School)
+    suspend fun delete(school: School)
 
     @Delete
-    fun deleteAll(schoolList: List<School>)
+    suspend fun deleteAll(schoolList: List<School>)
 
     @Query("SELECT * FROM school")
-    fun getSchools(): List<School>
+    suspend fun getSchools(): List<School>
 
     // count all rows
     @Query("SELECT COUNT(dbn) FROM school")
-    fun getCount(): Int
+    suspend fun getCount(): Int
 }

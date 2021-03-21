@@ -4,64 +4,78 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.background.helper.lgd
+import com.homan.huang.a20210317_homanhuang_nycschools.R
 import com.homan.huang.a20210317_homanhuang_nycschools.data.entity.School
 import com.homan.huang.a20210317_homanhuang_nycschools.databinding.FragmentMainBinding
+import com.homan.huang.a20210317_homanhuang_nycschools.ui.main.adapter.SchoolClickListener
+import com.homan.huang.a20210317_homanhuang_nycschools.ui.main.adapter.SchoolItemAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * A placeholder fragment scooh information by tab title
+ * A placeholder fragment for schools information
  */
 @AndroidEntryPoint
-class PlaceholderFragment : Fragment(), SchoolClickListener {
+class SchoolInfoFragment: Fragment(), SchoolClickListener {
 
-//    private val pageViewModel: PageViewModel by activityViewModels()
-    private val pageViewModel: PageViewModel by viewModels()
-
-    // databinding
+    // view binding
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
+    // view models
+    private val schoolInfoVM: SchoolInfoViewModel by viewModels()
+    private val mainVM: MainViewModel by activityViewModels()
+
     // recyclerView clickListener
-//    private val schoolListener = SchoolClickListener {
-//        lgd("You click on dbn: $it")
-//    }
-    override fun onSchool_item_click(key: String) {
-        lgd("You click on dbn: $key")
+    override fun onSchool_item_click(school: School) {
+        lgd("==== searching dbn: ${school.dbn}")
+        // update view
+        mainVM.display.postValue(InfoStatus.SAT_SCORES)
+
+        // display scores by school's dbn
+        val scoreFragment =
+            SchoolScoresFragment.newInstance(school.dbn, school.schoolName)
+        // show fragment
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.scores_display, scoreFragment)
+            .addToBackStack(scoreFragment.javaClass.simpleName)
+            .setCustomAnimations(
+                R.anim.slide_up,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out
+            )
+            .commit()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        // view binding
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val root = binding.root
 
-//        val textView: TextView = binding.sectionLabel
         val recView: RecyclerView = binding.recyclerView
-//        val pageNum = arguments?.getInt(ARG_SECTION_NUMBER) ?: 1
-
-//        recView.visibility = View.GONE
 
         // preset data
-        pageViewModel.apply {
+        schoolInfoVM.apply {
             setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
         }
 
         // observer
-        pageViewModel.text.observe(viewLifecycleOwner, {
+        schoolInfoVM.text.observe(viewLifecycleOwner, {
             binding.sectionLabel.text = it
         })
-//        binding.sectionLabel.visibility = View.GONE
 
-        pageViewModel.schoollist.observe(viewLifecycleOwner,  {
+        // display schools by their name into 5 different categories
+        schoolInfoVM.schoollist.observe(viewLifecycleOwner,  {
             val mText = binding.sectionLabel.text
             val mSec = mText.last() //find the section#
 
@@ -99,31 +113,22 @@ class PlaceholderFragment : Fragment(), SchoolClickListener {
         return root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     companion object {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+        // tab section
         private const val ARG_SECTION_NUMBER = "section_number"
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         @JvmStatic
-        fun newInstance(sectionNumber: Int): PlaceholderFragment {
-            return PlaceholderFragment().apply {
+        fun newInstance(sectionNumber: Int): SchoolInfoFragment {
+            return SchoolInfoFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, sectionNumber)
                 }
             }
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-
 }

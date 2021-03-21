@@ -2,7 +2,7 @@ package com.example.background.helper
 
 import android.util.Log
 
-// logcat shortcut
+// logcat shortcut helper
 const val TAG = "MLOG"
 fun lgd(s:String) = Log.d(TAG, s)
 fun lgi(s:String) = Log.i(TAG, s)

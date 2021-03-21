@@ -13,7 +13,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
-class PageViewModel @Inject constructor(
+class SchoolInfoViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
@@ -30,7 +30,6 @@ class PageViewModel @Inject constructor(
 
     fun setIndex(index: Int) {
         _index.value = index
-        lgd("index: $index")
     }
 
     @Throws(IOException::class)
@@ -58,5 +57,4 @@ class PageViewModel @Inject constructor(
 
         }
     }
-
 }

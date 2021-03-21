@@ -1,4 +1,4 @@
-package com.homan.huang.a20210317_homanhuang_nycschools.ui.main
+package com.homan.huang.a20210317_homanhuang_nycschools.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +8,7 @@ import com.homan.huang.a20210317_homanhuang_nycschools.databinding.SchoolItemBin
 
 
 /*
+    RecyclerView Adapter:
     Display each school with title
  */
 class SchoolItemAdapter(
@@ -39,7 +40,7 @@ class SchoolItemAdapter(
 
         holder.binding.schoolItem.setOnClickListener {
 //            schoolListener.onClick(dataSet[position].dbn)
-            schoolClickListener.onSchool_item_click(dataSet[position].dbn)
+            schoolClickListener.onSchool_item_click(dataSet[position])
         }
     }
 
