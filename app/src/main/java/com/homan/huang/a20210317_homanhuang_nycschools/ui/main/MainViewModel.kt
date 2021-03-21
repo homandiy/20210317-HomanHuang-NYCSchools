@@ -10,11 +10,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
+
     // display picker
     val display = MutableLiveData<InfoStatus>()
 
     init {
         display.value = SCHOOLS
+    }
+
+    // update display by back button
+    fun updateDisplay() {
+        display.postValue(SCHOOLS)
     }
 }
 
