@@ -16,19 +16,6 @@ class Repository @Inject constructor(
 ) {
     private var schools: MutableList<School>? = null
 
-    suspend fun getInfo(): List<School>? {
-        val info = apiHelper.getSchoolInfo()
-
-        lgi("info count: ${info.size}")
-
-        if (info != null) {
-            for (item in info!!) {
-                schools?.add(item!!)
-            }
-        }
-        return schools
-    }
-
     // check roomdb status
     suspend fun checkRoomStatus(): Boolean {
         val schoolCount = schoolDb.schoolDao().getCount()
@@ -38,16 +25,19 @@ class Repository @Inject constructor(
     }
 
     // save to room from rest api
-    suspend fun saveToRoom() {
+    suspend fun saveToRoom(): Record {
         // schools to Room
         val schools = apiHelper.getSchoolInfo()
         lgi("school count: ${schools.size}")
         schoolDb.schoolDao().insertAll(schools)
+        val schoolCount = schoolDb.schoolDao().getCount()
 
         // scores to Room
         val scores = apiHelper.getSchoolScores()
         lgi("scores record count: ${scores.size}")
         schoolDb.scoreDao().insertAll(scores)
+        val scoreCount = schoolDb.scoreDao().getCount()
+        return Record(schoolCount, scoreCount)
     }
 
     suspend fun getAllSchools(): List<School> {
@@ -68,3 +58,5 @@ class Repository @Inject constructor(
     }
 
 }
+
+data class Record(val schoolCount: Int, val scoreCount: Int)

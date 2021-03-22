@@ -37,8 +37,11 @@ class SchoolInfoViewModel @Inject constructor(
 
         viewModelScope.launch(Dispatchers.IO) {
             // if schoolcount < 10 then download
-            if (!repository.checkRoomStatus())
-                repository.saveToRoom()
+            if (!repository.checkRoomStatus()) {
+                val record = repository.saveToRoom()
+                lgd("download record --  school: ${record.schoolCount}, " +
+                        "sat scores: ${record.scoreCount}")
+            }
             else
                 lgi("No need to update from web.")
 

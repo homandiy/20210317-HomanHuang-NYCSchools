@@ -8,6 +8,7 @@ import com.homan.huang.a20210317_homanhuang_nycschools.data.entity.School
 import com.homan.huang.a20210317_homanhuang_nycschools.data.entity.Score
 import com.homan.huang.a20210317_homanhuang_nycschools.data.room.dao.SchoolDao
 import com.homan.huang.a20210317_homanhuang_nycschools.data.room.dao.ScoreDao
+import com.homan.huang.a20210317_homanhuang_nycschools.data.room.migration.Migrate_1_2
 import com.homan.huang.a20210317_homanhuang_nycschools.helper.DB_NAME
 
 
@@ -17,7 +18,7 @@ import com.homan.huang.a20210317_homanhuang_nycschools.helper.DB_NAME
 */
 @Database(
     entities = [School::class, Score::class],
-    version = 1
+    version = 2     //school table update
 )
 abstract class SchoolDatabase : RoomDatabase() {
     abstract fun schoolDao(): SchoolDao
@@ -33,7 +34,10 @@ abstract class SchoolDatabase : RoomDatabase() {
                     context.applicationContext,
                     SchoolDatabase::class.java,
                     DB_NAME
-                ).fallbackToDestructiveMigration().build()
+                )
+                .addMigrations(Migrate_1_2) //school table update
+                .fallbackToDestructiveMigration().build()
+
                 INSTANCE = instance
                 instance
             }

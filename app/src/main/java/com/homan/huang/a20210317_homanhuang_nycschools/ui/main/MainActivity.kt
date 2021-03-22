@@ -1,6 +1,8 @@
 package com.homan.huang.a20210317_homanhuang_nycschools.ui.main
 
 import android.Manifest
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -83,22 +85,66 @@ class MainActivity : AppCompatActivity() {
                 SCHOOLS -> {
                     binding.viewPager.visibility = View.VISIBLE
                     binding.scoresDisplay.visibility = View.GONE
-                    binding.fabSearch.visibility = View.VISIBLE
                 }
                 SAT_SCORES -> {
                     binding.viewPager.visibility = View.GONE
                     binding.scoresDisplay.visibility = View.VISIBLE
-                    binding.fabSearch.visibility = View.GONE
                 }
             }
         })
 
-        // Floating button
-        val fab: FloatingActionButton = binding.fabSearch
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        mainVM.dbMigrated.observe(this, {
+            when(it) {
+                1 -> {
+                    msg(this, "Downloading...", 1)
+                }
+                2 -> {
+                    msg(this, "Data updated.", 0)
+                }
+                3 -> {
+                    showAlertBox()
+
+                }
+            }
+
+        })
+
+        // Floating button : future search
+//        val fab: FloatingActionButton = binding.fabSearch
+//        fab.setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+//        }
+    }
+
+    // Alert about data error
+    fun showAlertBox() {
+        val dialogBuilder = AlertDialog.Builder(this)
+
+        // set message of alert dialog
+        dialogBuilder.setMessage("Please check your Internet Connection!" +
+                "\nCLOSE?")
+            // if the dialog is cancelable
+            .setCancelable(false)
+            // positive button text and action
+            .setPositiveButton("Exit", DialogInterface.OnClickListener {
+                    dialog, id -> finish()
+            })
+            // negative button text and action
+            .setNegativeButton("Try again!", DialogInterface.OnClickListener {
+                    dialog, id ->
+                run {
+                    dialog.cancel()
+                    mainVM.downloadData()
+                }
+            })
+
+        // create dialog box
+        val alert = dialogBuilder.create()
+        // set title for alert dialog box
+        alert.setTitle("Alert! Data Error...")
+        // show alert dialog
+        alert.show()
     }
 
     override fun onBackPressed() {

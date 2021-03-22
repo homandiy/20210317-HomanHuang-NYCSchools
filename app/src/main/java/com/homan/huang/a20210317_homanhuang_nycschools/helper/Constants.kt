@@ -33,6 +33,11 @@ const val NOTIFICATION_ID = 1
 const val TAG_DOWNLOAD = "download"
 // database
 const val DB_NAME = "NYC_Schools"
+const val MIGRATED = "migrated"
 // info not found
 const val NOT_FOUND = "Not Found!"
-
+// default storage string
+const val ERROR = "error"
+// other storage string
+const val LOADING = "loading"
+const val DONE = "done"

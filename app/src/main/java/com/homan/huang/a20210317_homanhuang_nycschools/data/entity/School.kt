@@ -36,43 +36,43 @@ data class School(
 
 	 */
 	// address
-//	@SerializedName("location")
-//	@ColumnInfo(name = "location")
-//	val location: String?,
-//
-//	// city
-//	@SerializedName("city")
-//	@ColumnInfo(name = "city")
-//	val city: String?,
-//
-//	// state
-//	@SerializedName("state_code")
-//	@ColumnInfo(name = "state_code")
-//	val stateCode: String?,
-//
-//	// zipcode
-//	@SerializedName("zip")
-//	@ColumnInfo(name = "zip")
-//	val zip: String?,
-//
-//	// phone#
-//	@SerializedName("phone_number")
-//	@ColumnInfo(name = "phone_number")
-//	val phoneNumber: String?,
-//
-//	// fax#
-//	@SerializedName("fax_number")
-//	@ColumnInfo(name = "fax_number")
-//	val faxNumber: String?,
-//
-//	// school email
-//	@SerializedName("school_email")
-//	@ColumnInfo(name = "school_email")
-//	val schoolEmail: String?,
-//
-//	// website
-//	@SerializedName("website")
-//	@ColumnInfo(name = "website")
-//	val website: String?
+	@SerializedName("location")
+	@ColumnInfo(name = "location")
+	val location: String?,
+
+	// city
+	@SerializedName("city")
+	@ColumnInfo(name = "city")
+	val city: String?,
+
+	// state
+	@SerializedName("state_code")
+	@ColumnInfo(name = "state_code")
+	val stateCode: String?,
+
+	// zipcode
+	@SerializedName("zip")
+	@ColumnInfo(name = "zip")
+	val zip: String?,
+
+	// phone#
+	@SerializedName("phone_number")
+	@ColumnInfo(name = "phone_number")
+	val phoneNumber: String?,
+
+	// fax#
+	@SerializedName("fax_number")
+	@ColumnInfo(name = "fax_number")
+	val faxNumber: String?,
+
+	// school email
+	@SerializedName("school_email")
+	@ColumnInfo(name = "school_email")
+	val schoolEmail: String?,
+
+	// website
+	@SerializedName("website")
+	@ColumnInfo(name = "website")
+	val website: String?
 
 )

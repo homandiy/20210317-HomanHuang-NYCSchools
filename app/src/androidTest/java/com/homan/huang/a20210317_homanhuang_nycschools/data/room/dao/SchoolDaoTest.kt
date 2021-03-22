@@ -38,18 +38,35 @@ class SchoolDaoTest {
         testDb.close()
     }
 
-    // sample data 1
     fun getSample1(): School {
         return School("88J888",
             "Test High School",
-            "Overview Test High School.")
+            "Overview Test High School.",
+            "888 street st.",
+            "Your",
+            "NY",
+            "88188",
+            "888-444-9999",
+            "090-787-2342",
+            "uu@yourschool.org",
+            "YourSchool.org"
+        )
     }
 
     // sample data 2
     fun getSample2(): School {
-        return School("00J888",
+        return School("77J888",
             "Test2 High School",
-            "Overview2 Test High School.")
+            "Overview2 Test High School.",
+            "2338 street bl.",
+            "New",
+            "NY",
+            "33188",
+            "333-444-8899",
+            "343-787-8842",
+            "vv@hisschool.org",
+            "HisSchool.org"
+        )
     }
 
     @Test

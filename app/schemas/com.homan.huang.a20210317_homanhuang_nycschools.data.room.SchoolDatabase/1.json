@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "debd293ba4b15d37bf0c4437fb0c5d68",
+    "identityHash": "904af8e98eea3009f7bd61a02d40991c",
     "entities": [
       {
         "tableName": "school",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`dbn` TEXT NOT NULL, `school_name` TEXT NOT NULL, `overview_paragraph` TEXT NOT NULL, PRIMARY KEY(`dbn`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`dbn` TEXT NOT NULL, `school_name` TEXT NOT NULL, `overview_paragraph` TEXT NOT NULL, `location` TEXT, `city` TEXT, `state_code` TEXT, `zip` TEXT, `phone_number` TEXT, `fax_number` TEXT, `school_email` TEXT, `website` TEXT, PRIMARY KEY(`dbn`))",
         "fields": [
           {
             "fieldPath": "dbn",
@@ -25,6 +25,54 @@
             "columnName": "overview_paragraph",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "location",
+            "columnName": "location",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "city",
+            "columnName": "city",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stateCode",
+            "columnName": "state_code",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "zip",
+            "columnName": "zip",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "phoneNumber",
+            "columnName": "phone_number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "faxNumber",
+            "columnName": "fax_number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "schoolEmail",
+            "columnName": "school_email",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "website",
+            "columnName": "website",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -90,7 +138,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'debd293ba4b15d37bf0c4437fb0c5d68')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '904af8e98eea3009f7bd61a02d40991c')"
     ]
   }
 }

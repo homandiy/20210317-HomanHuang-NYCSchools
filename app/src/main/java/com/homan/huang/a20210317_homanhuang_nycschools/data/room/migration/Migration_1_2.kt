@@ -21,11 +21,11 @@ val Migrate_1_2 = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("ALTER TABLE school ADD COLUMN location TEXT")
         database.execSQL("ALTER TABLE school ADD COLUMN city TEXT")
-        database.execSQL("ALTER TABLE school ADD COLUMN stateCode TEXT")
+        database.execSQL("ALTER TABLE school ADD COLUMN state_code TEXT")
         database.execSQL("ALTER TABLE school ADD COLUMN zip TEXT")
-        database.execSQL("ALTER TABLE school ADD COLUMN phoneNumber TEXT")
-        database.execSQL("ALTER TABLE school ADD COLUMN faxNumber TEXT")
-        database.execSQL("ALTER TABLE school ADD COLUMN schoolEmail TEXT")
+        database.execSQL("ALTER TABLE school ADD COLUMN phone_number TEXT")
+        database.execSQL("ALTER TABLE school ADD COLUMN fax_number TEXT")
+        database.execSQL("ALTER TABLE school ADD COLUMN school_email TEXT")
         database.execSQL("ALTER TABLE school ADD COLUMN website TEXT")
     }
 }
