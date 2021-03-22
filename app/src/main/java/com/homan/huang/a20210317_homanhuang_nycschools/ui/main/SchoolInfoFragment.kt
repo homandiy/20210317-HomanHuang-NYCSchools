@@ -63,6 +63,7 @@ class SchoolInfoFragment: Fragment(), SchoolClickListener {
         val root = binding.root
 
         val recView: RecyclerView = binding.recyclerView
+        binding.sectionLabel.visibility = View.GONE
 
         // preset data
         schoolInfoVM.apply {
