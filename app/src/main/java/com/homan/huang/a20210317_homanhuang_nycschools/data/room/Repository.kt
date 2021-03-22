@@ -46,8 +46,19 @@ class Repository @Inject constructor(
 
     // find the scores according to dbn
     suspend fun getScores(key: String): Score? {
-//        val list = schoolDb.scoreDao().getAllScores()
         val item = schoolDb.scoreDao().getScore(key)
+
+        if (item != null)
+            lgd("item: ${item?.schoolName}")
+        else
+            lge("item is null or not found!")
+
+        return item
+    }
+
+    // find the school according to dbn
+    suspend fun getSchool(key: String): School? {
+        val item = schoolDb.schoolDao().getSchool(key)
 
         if (item != null)
             lgd("item: ${item?.schoolName}")

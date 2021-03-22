@@ -2,12 +2,11 @@ package com.homan.huang.a20210317_homanhuang_nycschools.ui.main
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.ContextMenu
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.background.helper.lgd
@@ -68,12 +67,26 @@ class SchoolScoresFragment : Fragment() {
             onBackPressed()
         }
 
+        scoresVM.school.observe(viewLifecycleOwner, {
+            if (it != null) {
+                // update UI
+                binding.schoolTitle.schoolName.text = it.schoolName
+                binding.addressTv.text = it.location
+                binding.cityTv.text = it.city
+                binding.stateTv.text = it.stateCode
+                binding.zipTv.text = it.zip
+                binding.phoneTv.text = it.phoneNumber
+                binding.faxTv.text = it.faxNumber
+                binding.emailTv.text = it.schoolEmail
+                binding.websiteTv.text = it.website
+            }
+        })
+
         // observer
         scoresVM.scores.observe(viewLifecycleOwner, {
             if (it != null) {
                 lgd("===== update: $it")
                 // update UI
-                binding.includeSchoolItem.schoolName.text = it.schoolName
                 binding.testTakersRecord.text = it.numOfSatTestTakers
                 binding.criticalReadingRecord.text = it.satCriticalReadingAvgScore
                 binding.mathRecord.text = it.satMathAvgScore
@@ -84,10 +97,6 @@ class SchoolScoresFragment : Fragment() {
         scoresVM.error.observe(viewLifecycleOwner, {
             if (it) {
                 lgd("Error: Scores Not Found!")
-                binding.includeSchoolItem.schoolName.apply{
-                    text = name
-                    setTextColor(Color.RED)
-                }
                 binding.testTakersRecord.apply {
                     text = NOT_FOUND
                     setTextColor(Color.RED)
