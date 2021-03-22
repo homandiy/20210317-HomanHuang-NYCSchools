@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "debd293ba4b15d37bf0c4437fb0c5d68",
+    "entities": [
+      {
+        "tableName": "school",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`dbn` TEXT NOT NULL, `school_name` TEXT NOT NULL, `overview_paragraph` TEXT NOT NULL, PRIMARY KEY(`dbn`))",
+        "fields": [
+          {
+            "fieldPath": "dbn",
+            "columnName": "dbn",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "schoolName",
+            "columnName": "school_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "overviewParagraph",
+            "columnName": "overview_paragraph",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "dbn"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "score",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`dbn` TEXT NOT NULL, `satWritingAvgScore` TEXT NOT NULL, `satCriticalReadingAvgScore` TEXT NOT NULL, `satMathAvgScore` TEXT NOT NULL, `schoolName` TEXT NOT NULL, `numOfSatTestTakers` TEXT NOT NULL, PRIMARY KEY(`dbn`))",
+        "fields": [
+          {
+            "fieldPath": "dbn",
+            "columnName": "dbn",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "satWritingAvgScore",
+            "columnName": "satWritingAvgScore",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "satCriticalReadingAvgScore",
+            "columnName": "satCriticalReadingAvgScore",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "satMathAvgScore",
+            "columnName": "satMathAvgScore",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "schoolName",
+            "columnName": "schoolName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "numOfSatTestTakers",
+            "columnName": "numOfSatTestTakers",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "dbn"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'debd293ba4b15d37bf0c4437fb0c5d68')"
+    ]
+  }
+}
